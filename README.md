@@ -14,6 +14,10 @@ For starting project, go to project directory and perform below steps :
     * gulp inject
     * gulp serve
 
+For setting up git hook
+
+* ln -s ../../hooks/git/pre-commit .git/hooks/pre-commit
+
 For production use 'gulp serve --production' in place of gulp serve.
 
 Use 'gulp clean' for cleaning .temp and dist folder.
