@@ -1,3 +1,7 @@
+/**
+ * Created By: Noopur N. Dabhi
+ * User model
+ */
 (function () {
   'use strict';
 

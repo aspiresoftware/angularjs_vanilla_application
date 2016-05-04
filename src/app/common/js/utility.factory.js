@@ -1,3 +1,8 @@
+/**
+ * Created By: Noopur N. Dabhi
+ * Utility for common funcionalities
+ */
+
 (function() {
   angular.module('nd')
     .factory('Utility', Utility);
@@ -9,9 +14,12 @@
       snakeToCamelCaseReplacer: snakeToCamelCaseReplacer,
       camelToSnakeCase: camelToSnakeCase,
       camelToSnakeCaseReplacer: camelToSnakeCaseReplacer,
-      responseCommonHandler:responseCommonHandler
+      responseCommonHandler: responseCommonHandler
     };
 
+    /**
+     * Empty object by keys whose value is undefined/null/empty
+     */
     function pruneEmpty(obj) {
       return (function prune(current) {
         _.forOwn(current, function (value, key) {
@@ -32,6 +40,9 @@
       }(_.cloneDeep(obj)));
     }
 
+    /**
+     * Convert keys of an object to snake case to camel case
+     */
     function snakeToCamelCase(response) {
       //Convert response keys from snake to camel case
       if (typeof response !== 'object') {
@@ -49,10 +60,17 @@
       return response;
     }
 
+    /**
+     * Convert keys of an object to snake case to camle case
+     */
     function snakeToCamelCaseReplacer(input) {
       return input[1].toUpperCase();
     }
 
+
+    /**
+     * Convert keys of an object to camel case to snake case
+     */
     function camelToSnakeCase(requestParams) {
       //Convert response keys from camel to snake case
       if (typeof requestParams !== 'object') {
@@ -70,6 +88,9 @@
       return requestParams;
     }
 
+    /**
+     * Convert keys of an object to camel case to snake case
+     */
     function camelToSnakeCaseReplacer(input) {
       return '_' + input.toLowerCase();
     }

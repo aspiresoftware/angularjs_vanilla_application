@@ -1,3 +1,6 @@
+/**
+ * Handles cache request and privdes basic method for cache
+ */
 (function() {
   angular.module('nd')
     .factory('CachedRequestHandler', CachedRequestHandlerFactory);

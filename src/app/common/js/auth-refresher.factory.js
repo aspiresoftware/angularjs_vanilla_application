@@ -1,3 +1,7 @@
+/**
+ * Created By: Noopur N. Dabhi
+ * This factory refreshes authetication token
+ */
 (function() {
   'use strict';
   angular.module('nd')
@@ -15,6 +19,7 @@
     Session
   ) {
     $log = $log.context('AuthRefresher');
+    // variable to check whether refreshing process is alredy running or not
     var lockedForRefresh = false;
 
     return {
@@ -22,6 +27,9 @@
       interceptSessionExpired: interceptSessionExpired
     };
 
+    /**
+     * Refresh authentication token based on refresh token
+     */
     function refresh(refreshToken) {
       var refreshPromise;
 
@@ -36,6 +44,7 @@
         refreshToken = Session.refreshToken;
       }
 
+      // Refresh authentication token
       refreshPromise = LoginService.refreshToken(refreshToken)
         .then(onRefreshSuccess, onRefreshFail)
         .finally(unlock);
@@ -43,6 +52,9 @@
       return refreshPromise;
     }
 
+    /**
+     * Collec all requests which fails having status 419 and queue them
+     */
     function interceptSessionExpired(httpResponse) {
       $log.debug('intercepting sessionExpired request');
 
@@ -54,6 +66,9 @@
       return DelegatorService.http(httpResponse.config);
     }
 
+    /**
+     * When auhtentication token is refreshed, execute delayed queue of requests
+     */
     function onRefreshSuccess(result) {
       var tokenData = result.data;
       $log.debug('Successfully got new access token');
@@ -64,6 +79,9 @@
       return result;
     }
 
+    /**
+     * When refreshing of authentication token fails, it displays error
+     */
     function onRefreshFail(result) {
       $log.error('Failure in getting token');
 
@@ -73,11 +91,17 @@
       return result;
     }
 
+    /**
+     * Lock auth refreshing process
+     */
     function lock() {
       lockedForRefresh = true;
       DelegatorService.synchronize(true);
     }
 
+    /**
+     * Unlock auth refreshing process
+     */
     function unlock() {
       lockedForRefresh = false;
       DelegatorService.synchronize(false);

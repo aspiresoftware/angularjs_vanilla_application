@@ -1,3 +1,7 @@
+/**
+ * Created By: Noopur N. Dabhi
+ * Send requests through network and recieve response
+ */
 (function () {
   'use strict';
 
@@ -33,6 +37,9 @@
       failDelayedRequests:    failDelayedRequests
     };
 
+    /**
+     * send requetst to server using $resource
+     */
     function resourceService (config) {
       /*
       Set header in methods which will come inside config
@@ -58,11 +65,17 @@
       });
     }
 
+    /**
+     * Keep track of each request
+     */
     function nextRequestId() {
       // Increment requestCounter and return new number as a string
       return '' + (requestCounter = requestCounter + 1);
     }
 
+    /**
+     * Executes requests after refreshing of auth token
+     */
     function executeDelayedRequests() {
       angular.forEach(
         delayedRequests,
@@ -81,6 +94,9 @@
       );
     }
 
+    /**
+     * When refreshing of auth token fails, it deletes all delayed requets
+     */
     function failDelayedRequests(data) {
       angular.forEach(
         delayedRequests,
@@ -94,6 +110,9 @@
       );
     }
 
+    /**
+     * Returns request's promise
+     */
     function http(config) {
       var promise;
 
@@ -106,6 +125,9 @@
       return promise;
     }
 
+    /**
+     * Execute http requests
+     */
     function executeHttp(config) {
       config               = prepareRequest(config || {});
 
@@ -123,11 +145,17 @@
 
       return promise;
 
+      /**
+       * Reject Promises
+      */
       function httpReject(result) {
         // Return a rejected promise to bubble failures
         return $q.reject(finalize(result));
       }
 
+      /**
+       * Return response of the request
+       */
       function finalize(result) {
         console.log(result);
         if (runningRequests[requestId]) {
@@ -151,6 +179,9 @@
       }
     }
 
+    /**
+     * Execute delayed requests
+     */
     function delayHttp(config) {
       config          = prepareRequest(config || {});
       var deferred    = $q.defer();
@@ -179,6 +210,14 @@
       return http(buildShortcutConfig('DELETE', url, params, customConfig));
     }
 
+    /**
+     * Build config
+     *
+     * @param  {string} method       method name
+     * @param  {string} url          url of the request
+     * @param  {opject} data         data comes fromt the request
+     * @param  {object} customConfig custom configuration
+     */
     function buildShortcutConfig(method, url, data, customConfig) {
       var config = angular.extend({}, customConfig || {});
 
@@ -216,6 +255,9 @@
       return syncMode;
     }
 
+    /**
+     * Prepare request, add headers to the request
+     */
     function prepareRequest (inputConfig) {
       var config            = angular.extend({headers: {}}, inputConfig),
       url               = config.url || '',
@@ -242,6 +284,12 @@
       return config;
     }
 
+    /**
+     * Define headers of the request
+     * @param {obkect} config  configurations
+     * @param {object} params  parameters/body of the request
+     * @param {headers} headers  header of the request
+     */
     function addAuth(config, params, headers) {
       var authHeader        = null;
       if (!config.noAuth) {

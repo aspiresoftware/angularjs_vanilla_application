@@ -1,3 +1,7 @@
+/**
+ * Created By: Noopur N. Dabhi
+ * This factory encodes and decodes inputs in Base64
+ */
 (function() {
   'use strict';
   angular.module('nd')

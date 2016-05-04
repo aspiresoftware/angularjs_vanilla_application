@@ -1,3 +1,7 @@
+/**
+ * Created By: Noopur N. Dabhi
+ * @return {[type]} [description]
+ */
 (function() {
   'use strict';
   angular.module('nd')
@@ -46,6 +50,9 @@
 
     return Session;
 
+    /**
+     * Create Session
+     */
     function create(user) {
       var tokens = {};
       var data = {};
@@ -63,6 +70,9 @@
       return Session;
     }
 
+    /**
+     * Clear token from session
+     */
     function logout(options) {
       options = angular.extend({redirect: true}, options || {});
 
@@ -78,6 +88,9 @@
       return Session;
     }
 
+    /**
+     * Update auth tokens
+     */
     function updateAuth(authData) {
       authData = authData || {};
 
@@ -89,14 +102,23 @@
       return storage.auth.update(updates);
     }
 
+    /**
+     * Get value of the key stored in session
+     */
     function getValue(key) {
       return storageForKey(key).getItem(key);
     }
 
+    /**
+     * Set value of the key stored in session
+     */
     function setValue(key, value) {
       storageForKey(key).setItem(key, value);
     }
 
+    /**
+     * Remove Session
+     */
     function remove() {
       angular.forEach(
         storage,

@@ -1,3 +1,7 @@
+/**
+ * Created By: Noopur N. Dabhi
+ * This file contains constants
+ */
 (function() {
   'use strict';
 

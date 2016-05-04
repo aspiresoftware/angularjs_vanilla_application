@@ -1,3 +1,7 @@
+/**
+ * Created By: Noopur N. Dabhi
+ * Configure routing
+ */
 (function() {
   'use strict';
 

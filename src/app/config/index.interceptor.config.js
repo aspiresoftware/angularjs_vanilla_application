@@ -1,3 +1,7 @@
+/**
+ * Created By: Noopur N. Dabhi
+ * Configure hhtp interceptor
+ */
 (function() {
   angular.module('nd')
     .config(config$ResourceProvider)
@@ -21,6 +25,9 @@
     );
   }
 
+  /**
+   * Register event for different response status
+   */
   /* @ngInject */
   function registerAuthEventListeners(
     $rootScope,

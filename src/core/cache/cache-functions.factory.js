@@ -1,3 +1,7 @@
+/**
+ * Created By: Noopur N. Dabhi
+ * Provides caching methods
+ */
 (function() {
   'use strict';
   angular.module('nd')
@@ -18,9 +22,11 @@
       removeCache: removeCache
     };
 
-    //Method for the updation(add new object to the cache data present) of the cache
-    //based on the given user data
-    //(i.e add the user given data to the cached copy)
+    /**
+     * Method for the updation(add new object to the cache data present)
+     * of the cache based on the given user data
+     * (i.e add the user given data to the cached copy)
+     */
     function updateCache(url, jsondata) {
       $log.debug('inside the updateCache() Method');
       DelegatorService.get(url).then(success, failure);
@@ -38,9 +44,11 @@
       }
     }
 
-    //Method for the updation(i.e delete the data from the cache) of the cache
-    //based on the given user data
-    //(i.e add the user given data to the cached copy)
+    /**
+     * Method for the updation(i.e delete the data from the cache) of the cache
+     * based on the given user data
+     * (i.e add the user given data to the cached copy)
+     */
     function removeCache(url, jsondata, successCallback, failureCallback) {
       $log.debug('inside the updateCache() Method');
       DelegatorService.get(url).then(success, failure);
@@ -65,6 +73,9 @@
         }
       }
 
+      /**
+       * Handles failure
+       */
       function failure() {
         $log.debug('failure in getting data from' + url);
         if (failureCallback) {
